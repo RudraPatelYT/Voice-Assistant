@@ -9,11 +9,19 @@ import json
 import pyautogui
 import functions
 import decoration
+import pywhatkit
+import smtplib
+import ssl
+from email import encoders
+from email.mime.base import MIMEBase
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 print(decoration.word)
 
 password = input("Enter password : ")
-mainpassword = "0506"
+mainpassword = "jarvis@0506"
+whatsapppassword = "whatsapp@0506"
 
 if password == mainpassword:
     print("right password")
@@ -68,17 +76,65 @@ if __name__ == "__main__":
             os.startfile(codepath)
 
         elif "email" in query:
-            try:
-                functions.speak("What should I say?")
-                content = functions.takeCommand().lower()
-                tomail = input("Enter email id: ")
-                to = tomail
-                functions.sendEmail(to, content)
-                functions.speak("Email has been sent!")
-            except Exception as e:
-                print(e)
-                functions.speak(
-                    "Sorry boss, I was not able to send this email")
+            a = input("Do you want to add attachments in mail : ")
+            functions.speak(
+                "Please write your subject body reciever email and file path to attach \n\n Please write in console.")
+            if a == "Yes":
+                subject = input('Subject for your email : ')
+                body = input('Body for your email : ')
+                sender_email = "rudylegendarygamer@gmail.com"
+                receiver_email = input('Recipient email : ')
+                password = "yxddsklwccmxahia"
+                filename = input("Enter your file name : ")
+
+                message = MIMEMultipart()
+                message["From"] = sender_email
+                message["To"] = receiver_email
+                message["Subject"] = subject
+                message["Bcc"] = receiver_email  # Recommended for mass emails
+                message.attach(MIMEText(body, "plain"))
+
+                with open(filename, "rb") as attachment:
+                    part = MIMEBase("application", "octet-stream")
+                    part.set_payload(attachment.read())
+
+                encoders.encode_base64(part)
+                part.add_header(
+                    "Content-Disposition",
+                    f"attachment; filename= {filename}",
+                )
+
+                message.attach(part)
+                text = message.as_string()
+
+                context = ssl.create_default_context()
+                with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+                    server.login(sender_email, password)
+                    server.sendmail(sender_email, receiver_email, text)
+            else:
+
+                subject = input('Subject for your email : ')
+                body = input('Body for your email : ')
+                sender_email = "rudylegendarygamer@gmail.com"
+                receiver_email = input('Recipient email : ')
+                password = "yxddsklwccmxahia"
+
+                message = MIMEMultipart()
+                message["From"] = sender_email
+                message["To"] = receiver_email
+                message["Subject"] = subject
+                message["Bcc"] = receiver_email  # Recommended for mass emails
+                message.attach(MIMEText(body, "plain"))
+                text = message.as_string()
+
+                context = ssl.create_default_context()
+                with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+                    server.login(sender_email, password)
+                    server.sendmail(sender_email,
+                                    receiver_email, text)
+
+            print("Email successfully sent")
+            functions.speak("Email successfully sent!!")
 
         elif "exit" in query:
             hour = int(datetime.datetime.now().hour)
@@ -111,17 +167,33 @@ if __name__ == "__main__":
             type_text = functions.takeCommand().lower()
             pyautogui.write(type_text)
         elif "send a whatsapp message" in query:
-            if password == mainpassword:
+            password = input("Enter your password : ")
+            if password == whatsapppassword:
                 print("right password")
-                # Make sure whatsapp web is open and you're logged in with your account
+                whatinput = input("Do you need to send image (Yes / No) : ")
                 functions.speak(
                     "To which number should I send the message? Please enter in the console."
                 )
                 number = input("Enter the number: ")
-                functions.speak("What is the message?")
-                message = functions.takeCommand().lower()
-                functions.send_whatsapp_message(number, message)
-                functions.speak("I've sent the message.")
+                if whatinput == "No":
+                    # Make sure whatsapp web is open and you're logged in with your account
+                    functions.speak("Do you want type message?")
+                    a = input("Do you want type message? (Yes / No)")
+                    if a == "Yes":
+                        functions.speak("What is the message?")
+                        message = input("What is the message : ")
+                        functions.send_whatsapp_message(number, message)
+                        functions.speak("I've sent the message.")
+                    else:
+                        functions.speak("What is the message?")
+                        message = functions.takeCommand().lower()
+                        functions.send_whatsapp_message(number, message)
+                        functions.speak("I've sent the message.")
+                else:
+                    caption = input("Caption : ")
+                    imagePath = input("Image Path : ")
+                    pywhatkit.sendwhats_image(number, imagePath, caption, 10)
+                    functions.speak("I've sent the message.")
             else:
                 print("Wrong password!!")
                 functions.speak("Wrong password!!")

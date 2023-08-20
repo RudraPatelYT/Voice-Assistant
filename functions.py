@@ -4,6 +4,9 @@ import smtplib
 import pyttsx3
 import datetime
 import speech_recognition as sr
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import ssl
 
 
 engine = pyttsx3.init("sapi5")
@@ -51,15 +54,6 @@ def takeCommand():
         print("Say that again please...")
         return "None"
     return query
-
-
-def sendEmail(to, content):
-    server = smtplib.SMTP("smtp.gmail.com", 587)
-    server.ehlo()
-    server.starttls()
-    server.login("your email id", "your password")
-    server.sendmail("your email id", to, content)
-    server.close()
 
 
 def send_whatsapp_message(number, message):
