@@ -220,7 +220,7 @@ if __name__ == "__main__":
             sys.exit()
         # elif "latest news" in query:
         #     question = input("What type of news are you interested in? ")
-        #     url = f"https://newsapi.org/v2/everything?q={question}&from=2023-07-16&sortBy=publishedAt&apiKey=5190dbfb7e324e2295d236076c6bdc50"
+        #     url = f""
         #     r = requests.get(url)
         #     news = json.loads(r.text)
         #     print(news, type(news))
