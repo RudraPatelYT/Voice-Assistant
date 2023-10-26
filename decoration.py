@@ -1,3 +1,13 @@
-import pyfiglet
 
-word = pyfiglet.figlet_format("Jarvis", font="slant")
+color = 'green'
+image = """
+    # # # # # 
+  #           #
+#               #
+#  #   ### ###  #
+#  #   ##  # #  #
+#  ### ### ###  #
+#               #
+  #           #
+    # # # # #
+"""
