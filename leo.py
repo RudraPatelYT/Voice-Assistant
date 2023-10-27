@@ -143,10 +143,9 @@ if __name__ == "__main__":
             os.startfile(codepath)
 
         elif "email" in query:
-            a = input("Do you want to add attachments in mail : ")
-            speak(
-                "Please write your subject body reciever email and file path to attach \n\n Please write in console.")
-            if a == "Yes":
+            speak("Do you want to send attachments in email?")
+            emailvoice = takeCommand().lower()
+            if emailvoice == "yes" or emailvoice == "yup":
                 speak("Please, enter recipient email in the console")
                 receiver_email = input('Recipient email : ')
                 speak("Please, tell me what is the subject?")
@@ -154,8 +153,8 @@ if __name__ == "__main__":
                 speak("Please, tell me what is the body?")
                 body = takeCommand().lower()
                 filename = input("Enter your file name : ")
-                sender_email = "rudylegendarygamer@gmail.com"
-                password = "yxddsklwccmxahia"
+                sender_email = ""
+                password = ""
 
                 message = MIMEMultipart()
                 message["From"] = sender_email
@@ -243,12 +242,13 @@ if __name__ == "__main__":
             type_text = takeCommand().lower()
             pyautogui.write(type_text)
         elif "send a whatsapp message" in query:
-            whatinput = input("Do you need to send image (Yes / No) : ")
+            speak("Do you need to send image?")
+            whatvoice = takeCommand().lower()
             speak(
                 "To which number should I send the message? Please enter in the console."
             )
             number = input("Enter the number: ")
-            if whatinput == "No":
+            if whatvoice == "no" or whatvoice == "nope":
                 speak("Do you want type message?")
                 speak("What is the message?")
                 message = input("What is the message : ")
