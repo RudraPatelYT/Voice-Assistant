@@ -188,8 +188,8 @@ if __name__ == "__main__":
                 subject = takeCommand().lower()
                 speak("Please what is the body?")
                 body = takeCommand().lower()
-                sender_email = "rudylegendarygamer@gmail.com"
-                password = "yxddsklwccmxahia"
+                sender_email = ""
+                password = ""
 
                 message = MIMEMultipart()
                 message["From"] = sender_email
