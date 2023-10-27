@@ -153,8 +153,8 @@ if __name__ == "__main__":
                 speak("Please, tell me what is the body?")
                 body = takeCommand().lower()
                 filename = input("Enter your file name : ")
-                sender_email = ""
-                password = ""
+                sender_email = "rudylegendarygamer@gmail.com"
+                password = "yxddsklwccmxahia"
 
                 message = MIMEMultipart()
                 message["From"] = sender_email
@@ -188,8 +188,8 @@ if __name__ == "__main__":
                 subject = takeCommand().lower()
                 speak("Please what is the body?")
                 body = takeCommand().lower()
-                sender_email = ""
-                password = ""
+                sender_email = "rudylegendarygamer@gmail.com"
+                password = "yxddsklwccmxahia"
 
                 message = MIMEMultipart()
                 message["From"] = sender_email
