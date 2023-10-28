@@ -123,7 +123,7 @@ if __name__ == "__main__":
                 "https://www.youtube.com/watch?v=vtNJMAyeP0s&list=RDvtNJMAyeP0s&start_radio=1&rv=vtNJMAyeP0s&t=0")
 
         elif "play music" in query:
-            music_dir = "C:\\Users\\Admin\\Desktop\\song"
+            music_dir = "./song"
             songs = os.listdir(music_dir)
             # print(songs)
             os.startfile(os.path.join(music_dir, songs[0]))
